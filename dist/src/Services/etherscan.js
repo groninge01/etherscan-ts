@@ -1,22 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from "axios";
-import { IResponse } from "src/Interfaces/response.interface";
-
-export class Etherscan {
-    private apiKey: string;
-    private apiUrl: string;
-    constructor(apiKey: string, apiUrl?: string) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Etherscan = void 0;
+const axios_1 = __importDefault(require("axios"));
+class Etherscan {
+    constructor(apiKey, apiUrl) {
         this.apiUrl = apiUrl || "https://api.etherscan.io/api";
         this.apiKey = apiKey;
         if (!this.apiKey) {
             throw new Error(`API key is required`);
         }
     }
-    /* Accounts */
-    public async getSingleEtherBalance(
-        address: string,
-        tag?: string
-    ): Promise<IResponse> {
+    async getSingleEtherBalance(address, tag) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -27,15 +24,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getSingleEtherBalance Error: ${error.message}`);
         }
     }
-
-    public async getMultipleEtherBalance(
-        addresses: string[],
-        tag?: string
-    ): Promise<IResponse> {
+    async getMultipleEtherBalance(addresses, tag) {
         try {
             if (addresses.length > 20) {
                 throw new Error(`maxium of 20 accounts in a single batch`);
@@ -50,19 +44,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getMultipleEtherBalance Error: ${error.message}`);
         }
     }
-
-    public async getTrxList(
-        address: string,
-        startblock: number,
-        endblock: number,
-        page: number,
-        offset: number,
-        sort: string
-    ): Promise<IResponse> {
+    async getTrxList(address, startblock, endblock, page, offset, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -77,19 +64,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getTrxList Error: ${error.message}`);
         }
     }
-
-    public async getInternalTrxListByAddress(
-        address: string,
-        startblock: number,
-        endblock: number,
-        page: number,
-        offset: number,
-        sort: string
-    ): Promise<IResponse> {
+    async getInternalTrxListByAddress(address, startblock, endblock, page, offset, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -104,14 +84,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getInternalTrxListByAddress Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getInternalTrxListByAddress Error: ${error.message}`);
         }
     }
-
-    public async getInternalTrxListByHash(txhash: string): Promise<IResponse> {
+    async getInternalTrxListByHash(txhash) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -121,18 +99,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getInternalTrxListByHash Error: ${error.message}`);
         }
     }
-
-    public async getInternalTrxListByBlockRange(
-        startblock: number,
-        endblock: number,
-        page: number,
-        offset: number,
-        sort: string
-    ): Promise<IResponse> {
+    async getInternalTrxListByBlockRange(startblock, endblock, page, offset, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -146,22 +118,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getInternalTrxListByBlockRange Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getInternalTrxListByBlockRange Error: ${error.message}`);
         }
     }
-
-    public async getERC20TokenTransferEventList(
-        address: string,
-        contractAddress: string,
-        page: number,
-        offset: number,
-        startblock: number,
-        endblock: number,
-        sort: string
-    ): Promise<IResponse> {
+    async getERC20TokenTransferEventList(address, contractAddress, page, offset, startblock, endblock, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -177,22 +139,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getERC20TokenTransferEventList Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getERC20TokenTransferEventList Error: ${error.message}`);
         }
     }
-
-    public async getERC721TokenTransferEventList(
-        address: string,
-        contractAddress: string,
-        page: number,
-        offset: number,
-        startblock: number,
-        endblock: number,
-        sort: string
-    ): Promise<IResponse> {
+    async getERC721TokenTransferEventList(address, contractAddress, page, offset, startblock, endblock, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -208,22 +160,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getERC721TokenTransferEventList Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getERC721TokenTransferEventList Error: ${error.message}`);
         }
     }
-
-    public async getERC1155TokenTransferEventList(
-        address: string,
-        contractAddress: string,
-        page: number,
-        offset: number,
-        startblock: number,
-        endblock: number,
-        sort: string
-    ): Promise<IResponse> {
+    async getERC1155TokenTransferEventList(address, contractAddress, page, offset, startblock, endblock, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -239,19 +181,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getERC1155TokenTransferEventList Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getERC1155TokenTransferEventList Error: ${error.message}`);
         }
     }
-
-    public async getMinedBlocksByAddress(
-        address: string,
-        blocktype: string,
-        page: number,
-        offset: number
-    ): Promise<IResponse> {
+    async getMinedBlocksByAddress(address, blocktype, page, offset) {
         try {
             if (blocktype !== "blocks" && blocktype !== "uncles") {
                 throw new Error(`Wrong block type`);
@@ -267,15 +202,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getMinedBlocksByAddress Error: ${error.message}`);
         }
     }
-
-    public async getHistoricalEtherBalance(
-        address: string,
-        blockno: number
-    ): Promise<IResponse> {
+    async getHistoricalEtherBalance(address, blockno) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -286,15 +218,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getHistoricalEtherBalance Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getHistoricalEtherBalance Error: ${error.message}`);
         }
     }
-
-    /* Contracts */
-    public async getContractAbi(address: string): Promise<IResponse> {
+    async getContractAbi(address) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -304,12 +233,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getContractAbi Error: ${error.message}`);
         }
     }
-
-    public async getContractSourceCode(address: string): Promise<IResponse> {
+    async getContractSourceCode(address) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -319,15 +248,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getContractSourceCode Error: ${error.message}`);
         }
     }
-
-    /* Transactions */
-    public async checkContractExecutionStatus(
-        txhash: string
-    ): Promise<IResponse> {
+    async checkContractExecutionStatus(txhash) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -337,17 +263,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `checkContractExecutionStatus Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`checkContractExecutionStatus Error: ${error.message}`);
         }
     }
-
-    public async checkTransactionReceiptStatus(
-        txhash: string
-    ): Promise<IResponse> {
-        // Only applicable for Post Byzantium fork transactions
+    async checkTransactionReceiptStatus(txhash) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -357,15 +278,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `checkTransactionReceiptStatus Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`checkTransactionReceiptStatus Error: ${error.message}`);
         }
     }
-
-    /* Blocks */
-    public async getBlockandUncleReward(blockno: number): Promise<IResponse> {
+    async getBlockandUncleReward(blockno) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -375,14 +293,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getBlockandUncleReward Error: ${error.message}`);
         }
     }
-
-    public async getEstimatedBlockCountdownTime(
-        blockno: number
-    ): Promise<IResponse> {
+    async getEstimatedBlockCountdownTime(blockno) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -392,17 +308,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getEstimatedBlockCountdownTime Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getEstimatedBlockCountdownTime Error: ${error.message}`);
         }
     }
-
-    public async getBlockNumberByTimestamp(
-        timestamp: number,
-        closest: string
-    ): Promise<IResponse> {
+    async getBlockNumberByTimestamp(timestamp, closest) {
         if (closest !== "before" && closest !== "after") {
             throw new Error(`Wrong parameter`);
         }
@@ -416,18 +327,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getBlockNumberByTimestamp Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getBlockNumberByTimestamp Error: ${error.message}`);
         }
     }
-
-    public async getDailyAverageBlockSize(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyAverageBlockSize(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -439,16 +344,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getDailyAverageBlockSize Error: ${error.message}`);
         }
     }
-
-    public async getDailyAverageBlockCountAndRewards(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyAverageBlockCountAndRewards(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -460,18 +361,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getDailyAverageBlockCountAndRewards Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getDailyAverageBlockCountAndRewards Error: ${error.message}`);
         }
     }
-
-    public async getDailyBlockRewards(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyBlockRewards(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -483,16 +378,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getDailyBlockRewards Error: ${error.message}`);
         }
     }
-
-    public async getDailyAverageBlockTime(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyAverageBlockTime(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -504,16 +395,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getDailyAverageBlockTime Error: ${error.message}`);
         }
     }
-
-    public async getDailyUncleBlockCountAndRewards(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyUncleBlockCountAndRewards(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -525,21 +412,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getDailyUncleBlockCountAndRewards Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getDailyUncleBlockCountAndRewards Error: ${error.message}`);
         }
     }
-
-    /* Log */
-    public async getEventLogsByAddress(
-        address: string,
-        fromBlock: number,
-        toBlock: number,
-        page: number,
-        offset: number
-    ): Promise<IResponse> {
+    async getEventLogsByAddress(address, fromBlock, toBlock, page, offset) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -553,20 +431,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getEventLogsByAddress Error: ${error.message}`);
         }
     }
-
-    public async getEventLogsByTopics(
-        fromBlock: number,
-        toBlock: number,
-        topic0: string,
-        topic0_1_opr: string,
-        topic1: string,
-        page: number,
-        offset: number
-    ): Promise<IResponse> {
+    async getEventLogsByTopics(fromBlock, toBlock, topic0, topic0_1_opr, topic1, page, offset) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -582,21 +452,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getEventLogsByTopics Error: ${error.message}`);
         }
     }
-
-    public async getEventLogsByAddressFilteredByTopics(
-        fromBlock: number,
-        toBlock: number,
-        address: string,
-        topic0: string,
-        topic0_1_opr: string,
-        topic1: string,
-        page: number,
-        offset: number
-    ): Promise<IResponse> {
+    async getEventLogsByAddressFilteredByTopics(fromBlock, toBlock, address, topic0, topic0_1_opr, topic1, page, offset) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -613,15 +474,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getEventLogsByAddressFilteredByTopics Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getEventLogsByAddressFilteredByTopics Error: ${error.message}`);
         }
     }
-
-    /* Geth/Parity Proxy */
-    public async getRecentBlockNumber(): Promise<IResponse> {
+    async getRecentBlockNumber() {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -630,15 +488,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getRecentBlockNumber Error: ${error.message}`);
         }
     }
-
-    public async getBlockbyNumber(
-        tag: string,
-        boolean: string
-    ): Promise<IResponse> {
+    async getBlockbyNumber(tag, boolean) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -649,15 +504,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getBlockbyNumber Error: ${error.message}`);
         }
     }
-
-    public async getUncleByBlockNumberAndIndex(
-        tag: string,
-        index: string
-    ): Promise<IResponse> {
+    async getUncleByBlockNumberAndIndex(tag, index) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -668,16 +520,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getUncleByBlockNumberAndIndex Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getUncleByBlockNumberAndIndex Error: ${error.message}`);
         }
     }
-
-    public async getBlockTransactionCountByNumber(
-        tag: string
-    ): Promise<IResponse> {
+    async getBlockTransactionCountByNumber(tag) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -687,14 +535,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getBlockTransactionCountByNumber Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getBlockTransactionCountByNumber Error: ${error.message}`);
         }
     }
-
-    public async getTransactionByHash(txhash: string): Promise<IResponse> {
+    async getTransactionByHash(txhash) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -704,15 +550,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getTransactionByHash Error: ${error.message}`);
         }
     }
-
-    public async getTransactionByBlockNumberAndIndex(
-        tag: string,
-        index: string
-    ): Promise<IResponse> {
+    async getTransactionByBlockNumberAndIndex(tag, index) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -723,14 +566,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getTransactionByBlockNumberAndIndex Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getTransactionByBlockNumberAndIndex Error: ${error.message}`);
         }
     }
-
-    public async getTransactionCount(tag: string): Promise<IResponse> {
+    async getTransactionCount(tag) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -740,12 +581,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getTransactionCount Error: ${error.message}`);
         }
     }
-
-    public async sendRawTransaction(hex: string): Promise<IResponse> {
+    async sendRawTransaction(hex) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -755,12 +596,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`sendRawTransaction Error: ${error.message}`);
         }
     }
-
-    public async getTransactionReceipt(txhash: string): Promise<IResponse> {
+    async getTransactionReceipt(txhash) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -770,16 +611,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getTransactionReceipt Error: ${error.message}`);
         }
     }
-
-    public async call(
-        to: string,
-        data: string,
-        tag: string
-    ): Promise<IResponse> {
+    async call(to, data, tag) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -791,12 +628,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`call Error: ${error.message}`);
         }
     }
-
-    public async getCode(address: string, tag: string): Promise<IResponse> {
+    async getCode(address, tag) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -807,16 +644,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getCode Error: ${error.message}`);
         }
     }
-
-    public async getStorageAt(
-        address: string,
-        position: string,
-        tag: string
-    ): Promise<IResponse> {
+    async getStorageAt(address, position, tag) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -828,12 +661,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getStorageAt Error: ${error.message}`);
         }
     }
-
-    public async gasPrice(): Promise<IResponse> {
+    async gasPrice() {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -842,18 +675,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`gasPrice Error: ${error.message}`);
         }
     }
-
-    public async estimateGas(
-        data: string,
-        to: string,
-        value: string,
-        gasPrice: string,
-        gas: string
-    ): Promise<IResponse> {
+    async estimateGas(data, to, value, gasPrice, gas) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -867,15 +694,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`estimateGas Error: ${error.message}`);
         }
     }
-
-    /* Tokens */
-    public async getERC20TokenTotalSupply(
-        contractaddress: string
-    ): Promise<IResponse> {
+    async getERC20TokenTotalSupply(contractaddress) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -885,16 +709,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getERC20TokenTotalSupply Error: ${error.message}`);
         }
     }
-
-    public async getERC20TokenBalance(
-        contractaddress: string,
-        address: string,
-        tag: string
-    ): Promise<IResponse> {
+    async getERC20TokenBalance(contractaddress, address, tag) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -906,15 +726,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getERC20TokenBalance Error: ${error.message}`);
         }
     }
-
-    public async getHistoricalERC20TokenTotalSupplyByContractAddressAndBlockNo(
-        contractaddress: string,
-        blockno: number
-    ): Promise<IResponse> {
+    async getHistoricalERC20TokenTotalSupplyByContractAddressAndBlockNo(contractaddress, blockno) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -925,18 +742,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getHistoricalERC20TokenTotalSupplyByContractAddressAndBlockNo Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getHistoricalERC20TokenTotalSupplyByContractAddressAndBlockNo Error: ${error.message}`);
         }
     }
-
-    public async getHistoricalERC20TokenBalanceByContractAddressAndBlockNo(
-        contractaddress: string,
-        address: string,
-        blockno: number
-    ): Promise<IResponse> {
+    async getHistoricalERC20TokenBalanceByContractAddressAndBlockNo(contractaddress, address, blockno) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -948,16 +759,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getHistoricalERC20TokenBalanceByContractAddressAndBlockNo Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getHistoricalERC20TokenBalanceByContractAddressAndBlockNo Error: ${error.message}`);
         }
     }
-
-    public async getTokenInfoByContractAddress(
-        contractaddress: string
-    ): Promise<IResponse> {
+    async getTokenInfoByContractAddress(contractaddress) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -967,19 +774,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getTokenInfoByContractAddress Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getTokenInfoByContractAddress Error: ${error.message}`);
         }
     }
-
-    public async getAddressERC721TokenInventoryByContractAddress(
-        address: string,
-        contractaddress: string,
-        page: number,
-        offset: number
-    ): Promise<IResponse> {
+    async getAddressERC721TokenInventoryByContractAddress(address, contractaddress, page, offset) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -992,17 +792,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getAddressERC721TokenInventoryByContractAddress Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getAddressERC721TokenInventoryByContractAddress Error: ${error.message}`);
         }
     }
-
-    /* Gas Tracker */
-    public async estimateConfirmationTime(
-        gasprice: number
-    ): Promise<IResponse> {
+    async estimateConfirmationTime(gasprice) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1012,12 +807,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`estimateConfirmationTime Error: ${error.message}`);
         }
     }
-
-    public async getGasOracle(): Promise<IResponse> {
+    async getGasOracle() {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1026,16 +821,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getGasOracle Error: ${error.message}`);
         }
     }
-
-    public async getEthereumDailyTotalGasUsed(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getEthereumDailyTotalGasUsed(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1047,18 +838,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getEthereumDailyTotalGasUsed Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getEthereumDailyTotalGasUsed Error: ${error.message}`);
         }
     }
-
-    public async getDailyAverageGasPrice(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyAverageGasPrice(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1070,16 +855,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getDailyAverageGasPrice Error: ${error.message}`);
         }
     }
-
-    public async getDailyAverageGasLimit(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyAverageGasLimit(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1091,13 +872,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getDailyAverageGasLimit Error: ${error.message}`);
         }
     }
-
-    /* Stats */
-    public async getTotalEther(): Promise<IResponse> {
+    async getTotalEther() {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1106,12 +886,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getTotalEther Error: ${error.message}`);
         }
     }
-
-    public async getTotalEther2(): Promise<IResponse> {
+    async getTotalEther2() {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1120,12 +900,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getTotalEther2 Error: ${error.message}`);
         }
     }
-
-    public async getEtherLastPrice(): Promise<IResponse> {
+    async getEtherLastPrice() {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1134,18 +914,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getEtherLastPrice Error: ${error.message}`);
         }
     }
-
-    public async getEtherNodesSize(
-        startdate: string,
-        enddate: string,
-        clienttype: string,
-        syncmode: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getEtherNodesSize(startdate, enddate, clienttype, syncmode, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1159,12 +933,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getEtherNodesSize Error: ${error.message}`);
         }
     }
-
-    public async getTotalNodesCount(): Promise<IResponse> {
+    async getTotalNodesCount() {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1173,16 +947,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getTotalNodesCount Error: ${error.message}`);
         }
     }
-
-    public async getDailyNetworkTrxFee(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyNetworkTrxFee(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1194,16 +964,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getDailyNetworkTrxFee Error: ${error.message}`);
         }
     }
-
-    public async getDailyNewAddressCount(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyNewAddressCount(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1215,16 +981,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getDailyNewAddressCount Error: ${error.message}`);
         }
     }
-
-    public async getDailyNetworkUtilization(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyNetworkUtilization(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1236,18 +998,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getDailyNetworkUtilization Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getDailyNetworkUtilization Error: ${error.message}`);
         }
     }
-
-    public async getDailyAverageNetworkHashRate(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyAverageNetworkHashRate(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1259,18 +1015,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getDailyAverageNetworkHashRate Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getDailyAverageNetworkHashRate Error: ${error.message}`);
         }
     }
-
-    public async getDailyTrxCount(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyTrxCount(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1282,16 +1032,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getDailyTrxCount Error: ${error.message}`);
         }
     }
-
-    public async getDailyAverageNetworkDifficulty(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getDailyAverageNetworkDifficulty(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1303,18 +1049,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getDailyAverageNetworkDifficulty Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getDailyAverageNetworkDifficulty Error: ${error.message}`);
         }
     }
-
-    public async getEtherHistoricalDailyMarketCap(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getEtherHistoricalDailyMarketCap(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1326,18 +1066,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
-            throw new Error(
-                `getEtherHistoricalDailyMarketCap Error: ${error.message}`
-            );
+        }
+        catch (error) {
+            throw new Error(`getEtherHistoricalDailyMarketCap Error: ${error.message}`);
         }
     }
-
-    public async getEtherHistoricalPrice(
-        startdate: string,
-        enddate: string,
-        sort: string
-    ): Promise<IResponse> {
+    async getEtherHistoricalPrice(startdate, enddate, sort) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1349,22 +1083,12 @@ export class Etherscan {
                 apiKey: this.apiKey,
             };
             return this.wrapFetch(url, params);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`getEtherHistoricalPrice Error: ${error.message}`);
         }
     }
-
-    // this might be fantom specific, use at your own risk!
-    public async postVerifySourceCode(
-        contractAddress: string,
-        sourceCode: string,
-        codeFormat: string,
-        contractName: string,
-        compilerversion: string,
-        constructorArguements: string,
-        evmversion: string,
-        licenseType: number,
-    ): Promise<IResponse> {
+    async postVerifySourceCode(contractAddress, sourceCode, codeFormat, contractName, compilerversion, constructorArguements, evmversion, licenseType) {
         try {
             const url = `${this.apiUrl}`;
             const params = {
@@ -1380,20 +1104,14 @@ export class Etherscan {
                 evmversion,
                 licenseType,
             };
-
             return this.wrapFetch(url, params, true);
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`postVerifySourceCode Error: ${error.message}`);
         }
     }
-
-    /* Wrap */
-    private async wrapFetch(
-        url: string,
-        params: any,
-        isPost = false,
-    ): Promise<IResponse> {
-        const operation = isPost ? axios.post : axios.get;
+    async wrapFetch(url, params, isPost = false) {
+        const operation = isPost ? axios_1.default.post : axios_1.default.get;
         try {
             const res = await operation(url, {
                 params: params,
@@ -1403,8 +1121,11 @@ export class Etherscan {
                 throw new Error(`Response status must to be '1'`);
             }
             return json;
-        } catch (error: any) {
+        }
+        catch (error) {
             throw new Error(`Failed to fetch: ${error.message}`);
         }
     }
 }
+exports.Etherscan = Etherscan;
+//# sourceMappingURL=etherscan.js.map
